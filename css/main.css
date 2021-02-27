@@ -1,0 +1,127 @@
+:root {
+  --border-color-size:  0.4vmin solid black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  background-color: rgba(7, 99, 55, 0.28);
+}
+
+img {
+  display: inline-block;
+  max-height: 15vmin;
+  color-interpolation-filters: yellow;
+}
+
+#winner-msg {
+  display: flex;
+  align-items: center;
+  width: 32vmin;
+  justify-content: space-between;
+  font-family: 'Righteous', cursive;
+}
+
+#winner-img {
+  height: 8vmin;
+}
+
+#wins {
+  font-size: 10vmin;
+  margin: 0;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 20vmin);
+  grid-template-rows: repeat(3, 20vmin);
+}
+
+#board > div:hover {
+  background-color: rgba(3, 48, 26, 0.064);
+}
+
+#sq0 {
+  border-bottom: var(--border-color-size);
+  border-right: var(--border-color-size);
+}
+
+#sq0:hover {
+  border-top-left-radius: 20%;
+}
+
+#sq1 {
+  border-right: var(--border-color-size);
+  border-bottom: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq2 {
+  border-bottom: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq2:hover {
+  border-top-right-radius: 20%;
+}
+
+#sq3 {
+  border-top: var(--border-color-size);
+  border-right: var(--border-color-size);
+  border-bottom: var(--border-color-size);
+}
+
+#sq4 {
+  border-top: var(--border-color-size);
+  border-right: var(--border-color-size);
+  border-bottom: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq5 {
+  border-top: var(--border-color-size);
+  border-bottom: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq6 {
+  border-top: var(--border-color-size);
+  border-right: var(--border-color-size);
+}
+
+#sq6:hover {
+  border-bottom-left-radius: 20%;
+}
+
+#sq7 {
+  border-top: var(--border-color-size);
+  border-right: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq8 {
+  border-top: var(--border-color-size);
+  border-left: var(--border-color-size);
+}
+
+#sq8:hover {
+  border-bottom-right-radius: 20%;
+}
+
+button {
+  margin-top: 2vmin;
+  height: 7vmin;
+  width: 21vmin;
+  font-size: 3.7vmin;
+  font-family: 'Righteous', cursive;
+  border-radius: 4vmin;
+}
