@@ -3,31 +3,49 @@ const playerLookup = {
   '1': 'url("https://cdn.icon-icons.com/icons2/1238/PNG/512/letterx_83737.png")',
   '-1': 'url("http://cdn.onlinewebfonts.com/svg/img_354470.png")',
 };
-const winnerMsg = {
+const turnLookup = {
   '1': "https://cdn.icon-icons.com/icons2/1238/PNG/512/letterx_83737.png",
   '-1': "http://cdn.onlinewebfonts.com/svg/img_354470.png"
 }
 
-let board, turn, winner, clickCount, img;
+let board, turn, winner, clickCount;
 
+const boardEl = document.getElementById('board');
+const msgDivEl = document.getElementById('winner-msg');
+const winnerImgEl = document.getElementById('winner-img');
 const msgEl = document.getElementById('wins');
 const squareEls = [...document.querySelectorAll('#board > div')];
 const replayBtn = document.querySelector('button');
-const winnerImgEl = document.getElementById('winner-img');
-const msgDivEl = document.getElementById('winner-msg');
 
-document.getElementById('board').addEventListener('click', handleXO)
-  //.addEventListener('mouseover', addPseudoClasses);
+boardEl.addEventListener('click', handlePlayerClick);
+if (!winner) boardEl.addEventListener('mouseover', addPseudoClasses);
+boardEl.addEventListener('mouseout', removePseudoClasses);
+winnerImgEl.addEventListener('click', changePlayer);
 replayBtn.addEventListener('click', init);
 
 init();
-/*function addPseudoClasses(evt) {
-  var element = evt.target;
-  console.log(evt);
-  // element = document.elementFromPoint(evt.clientX, evt.clientY);
-  return;
-}*/
-function handleXO(evt) {
+
+function changePlayer(evt) {
+  let img = evt.target;
+  if (board.indexOf(1) === -1 || board.indexOf(-1) === -1) {
+    turn *= -1;
+    img.setAttribute('src', `${turnLookup[turn]}`);
+  }
+}
+
+
+function addPseudoClasses(evt) {
+  let idx = squareEls.indexOf(evt.target);
+  let div = document.getElementById(`sq${idx}`);
+  if (winner) return;
+  div.style.backgroundColor = 'rgba(3, 48, 26, 0.064)';
+}
+function removePseudoClasses(evt) {
+  let idx = squareEls.indexOf(evt.target);
+  let div = document.getElementById(`sq${idx}`);
+    div.style.backgroundColor = '';
+}
+function handlePlayerClick(evt) {
   clickCount++;
   const boardIdx = squareEls.indexOf(evt.target);
   if (boardIdx === -1 || winner) return;
@@ -111,11 +129,11 @@ function render() {
     msgDivEl.style.justifyContent = 'flex-start';
   } else if (winner) {
     msgEl.innerHTML = 'wins!';
-    winnerImgEl.setAttribute('src', `${winnerMsg[winner]}`);
+    winnerImgEl.setAttribute('src', `${turnLookup[winner]}`);
     msgDivEl.style.width = '35vmin'
   } else {
     msgEl.innerHTML = "turn";
-    winnerImgEl.setAttribute('src', `${winnerMsg[turn]}`);
+    winnerImgEl.setAttribute('src', `${turnLookup[turn]}`);
   }
   replayBtn.style.visibility = winner ? 'visible' : 'hidden';
 }

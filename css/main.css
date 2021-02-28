@@ -26,8 +26,6 @@ img {
 #winner-msg {
   display: flex;
   align-items: center;
-  width: 32vmin;
-  justify-content: space-between;
   font-family: 'Righteous', cursive;
 }
 
@@ -46,9 +44,9 @@ img {
   grid-template-rows: repeat(3, 20vmin);
 }
 
-#board > div:hover {
+/* #board > div:hover {
   background-color: rgba(3, 48, 26, 0.064);
-}
+} */
 
 #sq0 {
   border-bottom: var(--border-color-size);
