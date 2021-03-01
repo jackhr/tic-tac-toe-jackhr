@@ -18,32 +18,33 @@ const squareEls = [...document.querySelectorAll('#board > div')];
 const replayBtn = document.querySelector('button');
 
 boardEl.addEventListener('click', handlePlayerClick);
-if (!winner) boardEl.addEventListener('mouseover', addPseudoClasses);
-boardEl.addEventListener('mouseout', removePseudoClasses);
+if (!winner) boardEl.addEventListener('mouseover', addShade);
+boardEl.addEventListener('mouseout', removeShade);
 winnerImgEl.addEventListener('click', changePlayer);
 replayBtn.addEventListener('click', init);
 
 init();
-
 function changePlayer(evt) {
   let img = evt.target;
-  if (board.indexOf(1) === -1 || board.indexOf(-1) === -1) {
+  let total = 0;
+  board.forEach(function(squareValue) {
+    total += squareValue;    
+  });
+  if (total === 0) {
     turn *= -1;
     img.setAttribute('src', `${turnLookup[turn]}`);
   }
 }
-
-
-function addPseudoClasses(evt) {
+function addShade(evt) {
   let idx = squareEls.indexOf(evt.target);
   let div = document.getElementById(`sq${idx}`);
   if (winner) return;
   div.style.backgroundColor = 'rgba(3, 48, 26, 0.064)';
 }
-function removePseudoClasses(evt) {
+function removeShade(evt) {
   let idx = squareEls.indexOf(evt.target);
   let div = document.getElementById(`sq${idx}`);
-    div.style.backgroundColor = '';
+  div.style.backgroundColor = '';
 }
 function handlePlayerClick(evt) {
   clickCount++;
@@ -52,7 +53,7 @@ function handlePlayerClick(evt) {
   board[boardIdx] = turn;
   turn *= -1;
   winner = getWinner();
-  canGo();
+  Tie();
   render(); 
 }
 function getWinner() {
@@ -92,12 +93,12 @@ function checkDiags() {
     return null;
   }
 }
-function canGo() {
+function Tie() {
   let total = 0;
   board.forEach(function(square) {
     total += square;
   });
-  if (total === 1 && clickCount === 9 && !winner) {
+  if ((total === 1 || total === -1) && clickCount === 9 && !winner) {
     winner = 'T';
   }
 }
@@ -118,7 +119,7 @@ function render() {
     square.style.backgroundImage = playerLookup[squareValue];
     square.style.backgroundSize = 'cover';
     squareEls[boardIdx].style.pointerEvents = squareValue === 0 ? 'auto' : 'none';
-    msgDivEl.style.width = '32vmin';
+    msgDivEl.style.width = '36vmin';
     winnerImgEl.style.visibility = 'visible';
     msgDivEl.style.justifyContent = 'space-between';
   });
@@ -132,8 +133,13 @@ function render() {
     winnerImgEl.setAttribute('src', `${turnLookup[winner]}`);
     msgDivEl.style.width = '35vmin'
   } else {
-    msgEl.innerHTML = "turn";
+    msgEl.innerHTML = "to go";
     winnerImgEl.setAttribute('src', `${turnLookup[turn]}`);
   }
   replayBtn.style.visibility = winner ? 'visible' : 'hidden';
+  if (board.indexOf(1) !== -1 || board.indexOf(-1) !== -1) {
+    document.getElementById('change-player-div').style.visibility = 'hidden';
+  } else {
+    document.getElementById('change-player-div').style.visibility = 'visible';
+  }
 }

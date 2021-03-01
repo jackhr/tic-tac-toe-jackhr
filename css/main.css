@@ -17,16 +17,36 @@ body {
   background-color: rgba(7, 99, 55, 0.28);
 }
 
-img {
+#change-player-div {
+  display: flex;
+  width: 34vmin;
+  justify-content: flex-end;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 0.3vmin;
+}
+
+#pointer-img {
+  width: 5vmin;
+}
+
+#change-player {
+  font-family: 'Righteous', cursive;
+  margin: 0;
+  text-align: left;
+  font-size: 2.3vmin;
+}
+
+#title > img {
   display: inline-block;
   max-height: 15vmin;
-  color-interpolation-filters: yellow;
 }
 
 #winner-msg {
   display: flex;
   align-items: center;
   font-family: 'Righteous', cursive;
+  margin-bottom: 3vmin;
 }
 
 #winner-img {
@@ -35,7 +55,8 @@ img {
 
 #wins {
   font-size: 10vmin;
-  margin: 0;
+  margin: 0 0 1vmin 0;
+  line-height: 0;
 }
 
 #board {
@@ -43,10 +64,6 @@ img {
   grid-template-columns: repeat(3, 20vmin);
   grid-template-rows: repeat(3, 20vmin);
 }
-
-/* #board > div:hover {
-  background-color: rgba(3, 48, 26, 0.064);
-} */
 
 #sq0 {
   border-bottom: var(--border-color-size);
@@ -116,7 +133,7 @@ img {
 }
 
 button {
-  margin-top: 2vmin;
+  margin-top: 0.5vmin;
   height: 7vmin;
   width: 21vmin;
   font-size: 3.7vmin;
